@@ -1,0 +1,153 @@
+MySQL----------------------------
+
+
+
+----------------------sqoop--------------------------------------
+sqoop import --connect jdbc:mysql://127.0.0.1/Project --username root --password mypass --table olympics_History --target-dir /sqoop/Project/olympics_History
+
+
+-------------------------------------pig--------------
+
+ olympics_History_0 = LOAD 'hdfs:/sqoop/Project/olympics_History/part-m-00000' USING PigStorage(',') as (id:int, Name:chararray,Sex:chararray,Age:int,Height:float,Weight:float,NOC:chararray, Year:int,Season:chararray,City:chararray,Sport:chararray,Medal:chararray,uniqueId:int);
+
+
+olympics_History_1 = LOAD 'hdfs:/sqoop/Project/olympics_History/part-m-00001' USING PigStorage(',') as (id:int, Name:chararray,Sex:chararray,Age:int,Height:float,Weight:float,NOC:chararray, Year:int,Season:chararray,City:chararray,Sport:chararray,Medal:chararray,uniqueId:int);
+
+olympics_History_2 = LOAD 'hdfs:/sqoop/Project/olympics_History/part-m-00002' USING PigStorage(',') as (id:int, Name:chararray,Sex:chararray,Age:int,Height:float,Weight:float,NOC:chararray, Year:int,Season:chararray,City:chararray,Sport:chararray,Medal:chararray,uniqueId:int);
+
+
+olympics_History_3 = LOAD 'hdfs:/sqoop/Project/olympics_History/part-m-00003' USING PigStorage(',') as (id:int, Name:chararray,Sex:chararray,Age:int,Height:float,Weight:float,NOC:chararray, Year:int,Season:chararray,City:chararray,Sport:chararray,Medal:chararray,uniqueId:int);
+
+
+
+olympics_History_0 = LOAD '/home/hduser/project/olympics_History/part-m-00000' USING PigStorage(',') as (id:int, Name:chararray,Sex:chararray,Age:int,Height:float,Weight:float,NOC:chararray, Year:int,Season:chararray,City:chararray,Sport:chararray,Medal:chararray,uniqueId:int);
+olympics_History_1 = LOAD '/home/hduser/project/olympics_History/part-m-00001' USING PigStorage(',') as (id:int, Name:chararray,Sex:chararray,Age:int,Height:float,Weight:float,NOC:chararray, Year:int,Season:chararray,City:chararray,Sport:chararray,Medal:chararray,uniqueId:int);
+olympics_History_2 = LOAD '/home/hduser/project/olympics_History/part-m-00002' USING PigStorage(',') as (id:int, Name:chararray,Sex:chararray,Age:int,Height:float,Weight:float,NOC:chararray, Year:int,Season:chararray,City:chararray,Sport:chararray,Medal:chararray,uniqueId:int);
+olympics_History_3 = LOAD '/home/hduser/project/olympics_History/part-m-00003' USING PigStorage(',') as (id:int, Name:chararray,Sex:chararray,Age:int,Height:float,Weight:float,NOC:chararray, Year:int,Season:chararray,City:chararray,Sport:chararray,Medal:chararray,uniqueId:int);
+group_region_data = GROUP filter_gold_data by NOC;
+
+olympics_History01 =UNION olympics_History_0,olympics_History_1;
+olympics_History012 =UNION olympics_History01,olympics_History_2;
+olympics_History0123 =UNION olympics_History012,olympics_History_3;
+dataset_GROUP = GROUP olympics_History0123 ALL;
+
+olymbic_count = foreach dataset_GROUP  Generate COUNT(olympics_History0123.uniqueId);
+
+
+filter_gold_data = FILTER olympics_History0123 BY Medal == '"Gold"';
+
+
+group_region_data = GROUP filter_gold_data by REPLACE(NOC,'"','');
+
+region_group_counts = FOREACH group_region_data GENERATE group,COUNT(filter_gold_data.NOC) AS Total;
+
+order_by_data = ORDER region_group_counts BY Total DESC;
+
+limit_data = LIMIT order_by_data 10; 
+
+create 'olympic_TopTenCountry', 'olympic_data'
+
+STORE raw_data INTO 'hbase://olympic_TopTenCountry' USING org.apache.pig.backend.hadoop.hbase.HBaseStorage(
+'olympic_data:id 
+ olympic_data:Name 
+ olympic_data:Sex 
+ olympic_data:Age
+ olympic_data:Height
+ olympic_data:Weight
+ olympic_data:NOC
+ olympic_data:Year
+ olympic_data:Year
+ olympic_data:Year
+ olympic_data:Year
+ olympic_data:Year
+
+ '
+);
+PIG_CLASSPATH=/usr/local/hbase/lib/hbase-*.jar;
+
+:int, :chararray,:chararray,:int,:float,:float,:chararray, :int,
+Season:chararray,City:chararray,Sport:chararray,Medal:chararray,uniqueId:int
+
+STORE limit_data INTO 'hbase://olympic_TopTenCountry' USING org.apache.pig.backend.hadoop.hbase.HBaseStorage(olympic_data:NOC olympic_data:Total);
+
+ register /usr/local/hadoop-2.9.2/share/hadoop/common/lib/zookeeper-3.4.6.jar
+ register /usr/local/hbase/lib/hbase-server-1.4.10.jar
+ register /usr/local/hbase/lib/hbase-client-1.4.10.jar
+ register /usr/local/hbase/lib/hbase-common-1.4.10.jar
+ register /usr/local/hbase/lib/hbase-protocol-1.4.10.jar
+ register /usr/local/hbase/lib/htrace-core-3.1.0-incubating.jar
+STORE limit_data INTO 'hbase://customers' USING org.apache.pig.backend.hadoop.hbase.HBaseStorage(
+'customers_data:group,customers_data:Total');
+
+STORE limit_data INTO 'hdfs:/sqoop/Project/olympics_History/Task1/' USING PigStorage (',');
+
+
+create 'TopTenContryByGoldMedal','cf'
+bin/hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.separator="," -Dimporttsv.columns=HBASE_ROW_KEY,cf TopTenContryByGoldMedal /sqoop/Project/olympics_History/Task1/part-r-00000
+
+
+
+export PIG_HOME=/usr/local/pig
+export PIG_CLASSPATH=$PIG_HOME/legacy/pig-0.17.0-withouthadoop-h2.jar:$HBASE_HOME/hbase-*.jar:$HBASE_HOME/lib/*:$HADOOP_HOME/lib/*:$PIG_CLASSPATH
+------------------------command update hdfs if deleted  -------------------------------
+
+ hdfs dfs -copyFromLocal  /home/hduser/project/olympics_History hdfs:/sqoop/Project/olympics_History
+
+-----------------------------------------------------------------------------hive
+create database Project;
+use Project;
+
+
+
+CREATE TABLE olympics_History(id int, Name string,Sex string,Age int,Height float,Weight float,NOC string, Year int,Season string,City string,Sport string,Medal string,uniqueId int) row format delimited fields terminated by ',';
+
+LOAD DATA INPATH 'hdfs:/sqoop/Project/olympics_History/part-m-00000' INTO TABLE olympics_History;
+LOAD DATA INPATH 'hdfs:/sqoop/Project/olympics_History/part-m-00001' INTO TABLE olympics_History;
+LOAD DATA INPATH 'hdfs:/sqoop/Project/olympics_History/part-m-00002' INTO TABLE olympics_History;
+LOAD DATA INPATH 'hdfs:/sqoop/Project/olympics_History/part-m-00003' INTO TABLE olympics_History;
+
+
+select count(*) as count,sex,year from olympics_History where medal='"Gold"' group by year,sex ;
+
+
+
+CREATE TABLE hbase_gender_olympic(key INT,count INT,sex STRING,year String) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,cf:count,cf:sex,cf:year") TBLPROPERTIES ("hbase.table.name" = "GenderWiseOlympicMedalYearly");
+
+insert into hbase_gender_olympic select row_number()over(), t.count,t.sex,t.year from (select count(*) as count,sex,year from olympics_History where medal='"Gold"' group by year,sex) t;
+
+--------------------------------------hive Sport Vs Medal--------------------
+ select count(*),Medal,sport from olympics_History group by medal ,sport;
+CREATE TABLE hbase_MedalWiseSport_olympic(key INT,count INT,Medal STRING,Sport String) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,cf:count,cf:medal,cf:sport") TBLPROPERTIES ("hbase.table.name" = "MedalWiseSport_olympic");
+
+insert into hbase_MedalWiseSport_olympic select row_number()over(), t.count,t.medal,t.sport from ( select count(*) as count,Medal,sport from olympics_History group by medal ,sport) t;
+
+-------------------------------------hive Sesonal Yearly Olympic---------------
+select count(*),year,season from olympics_History group by year,season;
+CREATE TABLE hbase_SeasonalYearly_olympic(key INT,count INT,Year STRING,Season String) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,cf:count,cf:year,cf:season") TBLPROPERTIES ("hbase.table.name" = "SeasonalYearly_olympic");
+insert into hbase_SeasonalYearly_olympic select row_number()over(), t.count,t.year,t.season from ( select count(*) as count,year,season from olympics_History group by year,season) t;
+-------------------------------------avg height and weight by sport-------------------
+ select avg(height),avg(weight),sport from olympics_History group by sport;
+CREATE TABLE hbase_AVGheightVsWeight_olympic(key INT,height FLOAT,weight FLOAT,Sport String) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,cf:height,cf:weight,cf:sport") TBLPROPERTIES ("hbase.table.name" = "AVGheightVsWeight_olympic");
+insert into hbase_AVGheightVsWeight_olympic select row_number()over(), t.height_avg,t.weight_avg,t.sport from ( select avg(height) as height_avg,avg(weight) as weight_avg ,sport from olympics_History group by sport) t;
+
+-------------------------------------most Gold medals holders----------------
+select count(*) as count,name from olympics_History where medal='"Gold"' group by name order by count desc Limit 10 ;
+CREATE TABLE hbase_Top10Goldholders_olympic(key INT,count Int,name String) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,cf:count,cf:name") TBLPROPERTIES ("hbase.table.name" = "Top10Goldholders_olympic");
+insert into hbase_Top10Goldholders_olympic select row_number()over(), t.count,t.name from ( select count(*) as count,name from olympics_History where medal='"Gold"' group by name order by count desc Limit 10 ) t;
+-------------------------------------most prefered city by season-------------------
+ select count(*) as count,season,city from olympics_History group by season,city ;
+CREATE TABLE hbase_SeasonByCity_olympic(key INT,count Int,season String,city String) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,cf:count,cf:season,cf:city") TBLPROPERTIES ("hbase.table.name" = "SeasonByCity_olympic");
+insert into  hbase_SeasonByCity_olympic select row_number()over(), t.count,t.season,t.city from ( select count(*) as count,season,city from olympics_History group by season,city) t;
+
+-----------------------eclipse
+
+create 'SentimentVsMedalinUSA','cf'
+
+------------------------export in to csv
+bin/hbase org.apache.hadoop.hbase.mapreduce.Export GenderWiseOlympicMedalYearly /home/hduser/project/GenderWiseOlympicMedalYearly.csv
+bin/hbase org.apache.hadoop.hbase.mapreduce.Export SentimentVsMedalinUSA /home/hduser/project/SentimentVsMedalinUSA.csv
+bin/hbase org.apache.hadoop.hbase.mapreduce.Export TopTenContryByGoldMedal /home/hduser/project/TopTenContryByGoldMedal.csv
+hdfs dfs -copyToLocal hdfs://localhost:54310/home/hduser/project/TopTenContryByGoldMedal.csv /home/hduser/project/Output
+hdfs dfs -copyToLocal hdfs://localhost:54310/home/hduser/project/SentimentVsMedalinUSA.csv /home/hduser/project/Output
+hdfs dfs -copyToLocal hdfs://localhost:54310/home/hduser/project/GenderWiseOlympicMedalYearly.csv /home/hduser/project/Output
+

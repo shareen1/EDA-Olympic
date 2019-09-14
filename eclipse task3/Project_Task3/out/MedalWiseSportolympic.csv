@@ -1,0 +1,250 @@
+count,sport,medal
+17466,Wrestling,participant
+1236,Wrestling,Silver
+1230,Wrestling,Gold
+1398,Wrestling,Bronze
+9843,Weightlifting,participant
+630,Weightlifting,Silver
+639,Weightlifting,Gold
+645,Weightlifting,Bronze
+8337,Water Polo,participant
+1023,Water Polo,Silver
+1035,Water Polo,Gold
+1062,Water Polo,Bronze
+7263,Volleyball,participant
+963,Volleyball,Silver
+966,Volleyball,Gold
+957,Volleyball,Bronze
+156,Tug-Of-War,participant
+129,Tug-Of-War,Silver
+129,Tug-Of-War,Gold
+87,Tug-Of-War,Bronze
+1497,Triathlon,participant
+30,Triathlon,Silver
+30,Triathlon,Gold
+30,Triathlon,Bronze
+366,Trampolining,participant
+30,Trampolining,Silver
+30,Trampolining,Gold
+30,Trampolining,Bronze
+7503,Tennis,participant
+312,Tennis,Silver
+306,Tennis,Gold
+372,Tennis,Bronze
+1380,Taekwondo,participant
+120,Taekwondo,Silver
+120,Taekwondo,Gold
+192,Taekwondo,Bronze
+5337,Table Tennis,participant
+162,Table Tennis,Silver
+162,Table Tennis,Gold
+177,Table Tennis,Bronze
+2079,Synchronized Swimming,participant
+213,Synchronized Swimming,Silver
+219,Synchronized Swimming,Gold
+210,Synchronized Swimming,Bronze
+59880,Swimming,participant
+2829,Swimming,Silver
+2994,Swimming,Gold
+2751,Swimming,Bronze
+3,Sport,Medal
+15009,Speed Skating,participant
+567,Speed Skating,Silver
+570,Speed Skating,Gold
+567,Speed Skating,Bronze
+897,Softball,participant
+180,Softball,Silver
+180,Softball,Gold
+177,Softball,Bronze
+2538,Snowboarding,participant
+90,Snowboarding,Silver
+90,Snowboarding,Gold
+90,Snowboarding,Bronze
+6567,Ski Jumping,participant
+210,Ski Jumping,Silver
+207,Ski Jumping,Gold
+204,Ski Jumping,Bronze
+507,Skeleton,participant
+30,Skeleton,Silver
+27,Skeleton,Gold
+30,Skeleton,Bronze
+3741,Short Track Speed Skating,participant
+282,Short Track Speed Skating,Silver
+285,Short Track Speed Skating,Gold
+279,Short Track Speed Skating,Bronze
+30327,Shooting,participant
+1218,Shooting,Silver
+1191,Shooting,Gold
+1212,Shooting,Bronze
+15822,Sailing,participant
+1215,Sailing,Silver
+1290,Sailing,Gold
+1077,Sailing,Bronze
+237,Rugby,Silver
+186,Rugby,Gold
+48,Rugby,Bronze
+675,Rugby Sevens,participant
+72,Rugby Sevens,Silver
+75,Rugby Sevens,Gold
+75,Rugby Sevens,Bronze
+22725,Rowing,participant
+2889,Rowing,Silver
+2862,Rowing,Gold
+2928,Rowing,Bronze
+3,Roque,participant
+3,Roque,Silver
+3,Roque,Gold
+3,Roque,Bronze
+1572,Rhythmic Gymnastics,participant
+132,Rhythmic Gymnastics,Silver
+132,Rhythmic Gymnastics,Gold
+132,Rhythmic Gymnastics,Bronze
+6,Racquets,participant
+9,Racquets,Silver
+9,Racquets,Gold
+12,Racquets,Bronze
+78,Polo,participant
+66,Polo,Silver
+66,Polo,Gold
+60,Polo,Bronze
+3501,Nordic Combined,participant
+165,Nordic Combined,Silver
+162,Nordic Combined,Gold
+165,Nordic Combined,Bronze
+27,Motorboating,participant
+21,Motorboating,Gold
+4395,Modern Pentathlon,participant
+180,Modern Pentathlon,Silver
+186,Modern Pentathlon,Gold
+180,Modern Pentathlon,Bronze
+36,Military Ski Patrol,participant
+12,Military Ski Patrol,Silver
+12,Military Ski Patrol,Gold
+12,Military Ski Patrol,Bronze
+3870,Luge,participant
+168,Luge,Silver
+186,Luge,Gold
+180,Luge,Bronze
+72,Lacrosse,Silver
+72,Lacrosse,Gold
+36,Lacrosse,Bronze
+9750,Judo,participant
+408,Judo,Silver
+411,Judo,Gold
+822,Judo,Bronze
+24,Jeu De Paume,participant
+3,Jeu De Paume,Silver
+3,Jeu De Paume,Bronze
+11892,Ice Hockey,participant
+1503,Ice Hockey,Silver
+1515,Ice Hockey,Gold
+1494,Ice Hockey,Bronze
+11643,Hockey,participant
+1494,Hockey,Silver
+1536,Hockey,Gold
+1524,Hockey,Bronze
+7785,Handball,participant
+1071,Handball,Silver
+1044,Handball,Gold
+1056,Handball,Bronze
+72576,Gymnastics,participant
+2208,Gymnastics,Silver
+2343,Gymnastics,Gold
+2112,Gymnastics,Bronze
+585,Golf,participant
+45,Golf,Silver
+42,Golf,Gold
+42,Golf,Bronze
+2505,Freestyle Skiing,participant
+102,Freestyle Skiing,Silver
+102,Freestyle Skiing,Gold
+102,Freestyle Skiing,Bronze
+15486,Football,participant
+1533,Football,Silver
+1539,Football,Gold
+1626,Football,Bronze
+5604,Figure Skating,participant
+342,Figure Skating,Silver
+345,Figure Skating,Gold
+354,Figure Skating,Bronze
+26784,Fencing,participant
+1743,Fencing,Silver
+1782,Fencing,Gold
+1677,Fencing,Bronze
+15903,Equestrianism,participant
+951,Equestrianism,Silver
+939,Equestrianism,Gold
+921,Equestrianism,Bronze
+7182,Diving,participant
+420,Diving,Silver
+414,Diving,Gold
+429,Diving,Bronze
+28677,Cycling,participant
+1272,Cycling,Silver
+1272,Cycling,Gold
+1236,Cycling,Bronze
+927,Curling,participant
+159,Curling,Silver
+150,Curling,Gold
+144,Curling,Bronze
+24936,Cross Country Skiing,participant
+762,Cross Country Skiing,Silver
+753,Cross Country Skiing,Gold
+783,Cross Country Skiing,Bronze
+33,Croquet,participant
+6,Croquet,Silver
+12,Croquet,Gold
+6,Croquet,Bronze
+33,Cricket,Silver
+36,Cricket,Gold
+14922,Canoeing,participant
+1161,Canoeing,Silver
+1161,Canoeing,Gold
+1164,Canoeing,Bronze
+15237,Boxing,participant
+744,Boxing,Silver
+741,Boxing,Gold
+1317,Boxing,Bronze
+7881,Bobsleigh,participant
+381,Bobsleigh,Silver
+393,Bobsleigh,Gold
+396,Bobsleigh,Bronze
+13377,Biathlon,participant
+411,Biathlon,Silver
+408,Biathlon,Gold
+405,Biathlon,Bronze
+1473,Beach Volleyball,participant
+72,Beach Volleyball,Silver
+72,Beach Volleyball,Gold
+72,Beach Volleyball,Bronze
+6,Basque Pelota,Gold
+10305,Basketball,participant
+1077,Basketball,Silver
+1050,Basketball,Gold
+1047,Basketball,Bronze
+1665,Baseball,participant
+336,Baseball,Silver
+336,Baseball,Gold
+336,Baseball,Bronze
+3864,Badminton,participant
+162,Badminton,Silver
+162,Badminton,Gold
+180,Badminton,Bronze
+102870,Athletics,participant
+3870,Athletics,Silver
+3786,Athletics,Gold
+3789,Athletics,Bronze
+10113,Art Competitions,participant
+168,Art Competitions,Silver
+144,Art Competitions,Gold
+153,Art Competitions,Bronze
+5895,Archery,participant
+348,Archery,Silver
+390,Archery,Gold
+285,Archery,Bronze
+75,Alpinism,Gold
+24912,Alpine Skiing,participant
+426,Alpine Skiing,Silver
+426,Alpine Skiing,Gold
+420,Alpine Skiing,Bronze
+3,Aeronautics,Gold
